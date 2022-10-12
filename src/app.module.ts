@@ -1,8 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './modules';
+import { TypegooseModule } from "nestjs-typegoose";
+import { getMongoConfig } from './config/mongo.config';
+import { AuthModule, UserModule } from './modules';
 
 @Module({
-  imports: [AuthModule],
+  imports: [
+    TypegooseModule.forRootAsync({
+      useFactory: getMongoConfig
+    }),
+    AuthModule,
+    UserModule
+  ],
   controllers: [],
   providers: [],
 })

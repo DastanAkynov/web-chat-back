@@ -36,25 +36,25 @@ export class AuthService {
     if(!validPassword) throw new NotFoundException('Пользователь не найден')
 
     const userData = this.userService.createUserData(user)
-    const token = this.generateToken(user._id)
+    console.log('userData', user.id)
+    const token = this.generateToken(user.id)
     return {user: userData, token };
   }
 
 
   generateToken(id: string): string {
-    return this.jwtService.sign({ id })
+    return this.jwtService.sign({ _id: id })
   }
 
 
-  async validateToken(token: string): Promise<UserModel | null> {
-    try {
-      const payload = await this.jwtService
-      .verify(token)
-      // console.log(payload)
-      return payload
-    return 
-    } catch (err) {
-      return null
-    }
+  async getUserByJwt(token: string): Promise<UserModel | null> {
+    const payload = await this.jwtService
+      .verifyAsync(token)
+      .catch(() => null);
+    const u = await this.userModel.findById(payload._id)
+    console.log('UUUUUUUUUUUUUUUUUUU', u)
+
+    return payload ? null : null;
+
   }
 }

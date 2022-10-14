@@ -28,8 +28,12 @@ export class UserService {
 
   async validUser(data: CreateUserDto) {
     const user =  await this.userModel.findOne()
-    console.log(user)
     return user;
+  }
+
+  async getUserList() {
+    const userList = await this.userModel.find()
+    return {userList}
   }
 
   createUserData(user): IUserData {

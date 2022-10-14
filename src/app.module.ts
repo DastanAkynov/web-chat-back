@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypegooseModule } from "nestjs-typegoose";
 import { getMongoConfig } from './config/mongo.config';
-import { AuthModule, UserModule } from './modules';
+import { AuthModule, ChatModule, UserModule } from './modules';
 
 @Module({
   imports: [
@@ -9,7 +9,8 @@ import { AuthModule, UserModule } from './modules';
       useFactory: getMongoConfig
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    ChatModule
   ],
   controllers: [],
   providers: [],

@@ -32,33 +32,17 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
  async handleConnection(socket: Socket, ...args: any[]) {
   console.log('CONNECT')
-  const token = socket.handshake.headers.authorization
-  const user = await this.authService.getUserByJwt(token)
-  console.log('token', token, 'user', user)
-  if(!user) return
-  const onlineUser = await this.chatService.setOnline(user?._id)
-  // socket.data.user = onlineUser
-  console.log(onlineUser)
-  this.server.emit('updateUser', onlineUser)
  }
  
 
  async handleDisconnect(socket: Socket) {
   console.log('DISCONNECT')
-  const offlineUser = await this.chatService.setOffnline(socket.data.user?._id)
  }
  
  @SubscribeMessage('message')
  async handleSendMessage(client: Socket, payload): Promise<void> {
-  // const user = await this.userModel.findOne(payload._id)
-  // user.online = payload.online
-  // await user.save()
-  
  }
  
- afterInit(server: Server) {
-  //  console.log(server);
-   //Do stuffs
- }
+ afterInit(server: Server) {}
 
 }

@@ -7,11 +7,6 @@ export class ChatController {
 
   @Get()
   getChat() {
-    return 'true'
+    return 'getChat'
   }
-
-  // @Post('validate')
-  // compareUser() {
-  //   return this.userService.validUser(createUserDto);
-  // }
 }

@@ -51,10 +51,8 @@ export class AuthService {
     const payload = await this.jwtService
       .verifyAsync(token)
       .catch(() => null);
-    const u = await this.userModel.findById(payload._id)
-    console.log('UUUUUUUUUUUUUUUUUUU', u)
 
-    return payload ? null : null;
+    return payload ? await this.userModel.findById(payload._id) : null;
 
   }
 }

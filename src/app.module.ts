@@ -1,5 +1,7 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypegooseModule } from "nestjs-typegoose";
+import { SocketGateway } from 'src/modules/chat/socket.getaway';
+import { AuthMiddleware } from 'src/utils/middleware/AuthMiddleware';
 import { getMongoConfig } from './config/mongo.config';
 import { AuthModule, ChatModule, UserModule } from './modules';
 
@@ -15,4 +17,11 @@ import { AuthModule, ChatModule, UserModule } from './modules';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+    configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude('/auth/login', '/auth/register')
+      .forRoutes('*')
+  }
+}

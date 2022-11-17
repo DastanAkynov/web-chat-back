@@ -5,6 +5,7 @@ import { IUserData } from './types/user.interface';
 import { UserModel } from './model/user.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
+import { ExpressRequest } from 'src/utils/types/interfaces';
 
 @Injectable()
 export class UserService {
@@ -31,9 +32,10 @@ export class UserService {
     return user;
   }
 
-  async getUserList() {
+  async getChatUserList(req: ExpressRequest) {
     const userList = await this.userModel.find()
-    return {userList}
+    const chatUsers = userList.filter(el => el.id !== req.user.id)
+    return {userList: chatUsers}
   }
 
   createUserData(user): IUserData {

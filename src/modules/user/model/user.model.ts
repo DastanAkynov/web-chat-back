@@ -26,9 +26,4 @@ export class UserModel extends TimeStamps  {
     required: false
   })
   description: string;
-
-  @prop({
-    default: false
-  })
-  online: false;
 }

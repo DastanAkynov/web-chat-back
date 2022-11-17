@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
+import {  Module } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { AuthModule } from '../auth/auth.module';
 import { UserModel } from '../user/model/user.model';
 import { ChatController } from './chat.controller';
-import { ChatGateway } from './chat.getaway';
+import { SocketGateway } from './socket.getaway';
 import { ChatService } from './chat.service';
 
 @Module({
@@ -12,7 +12,7 @@ import { ChatService } from './chat.service';
     AuthModule
   ],
   controllers: [ChatController],
-  providers: [ChatService, ChatGateway],
+  providers: [ChatService, SocketGateway],
   exports: []
 })
 export class ChatModule {}
